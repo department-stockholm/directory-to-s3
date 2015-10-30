@@ -3,9 +3,7 @@
   "version": "1.0.0-rc1",
   "description": "CLI to simply upload a directory to Amazon S3",
   "main": "index.js",
-  "bin": {
-    "directory-to-s3": "./index.js"
-  },
+  "bin": "./bin/directory-to-s3",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
