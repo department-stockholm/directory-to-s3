@@ -1,6 +1,6 @@
 {
   "name": "directory-to-s3",
-  "version": "1.0.0-rc1",
+  "version": "1.0.0-rc2",
   "description": "CLI to simply upload a directory to Amazon S3",
   "main": "index.js",
   "bin": "./bin/directory-to-s3",
