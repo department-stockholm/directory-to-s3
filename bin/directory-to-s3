@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+'use strict';
+
+const docopt = require('docopt').docopt;
+const Uploader = require('../');
+const version = require('../package.json').version;
+
+const usage = `
+Usage:
+  directory-to-s3 [options ...] <bucket>
+
+Options:
+  -d --directory=DIR      A directory which will be recursively uploaded [default: ./]
+  -p --pattern=PATTERN    A glob pattern which will be uploaded
+  -P --prefix=PREFIX      An optional prefix to prepend to each file key
+  -a --acl=ACL            The ACL to assign to the uploaded files [default: public-read]
+  -v --verbose            Print progress logs to STDOUT [default: false]
+  -s --silent             Print no logs ever [default: false]
+  -h --help               Show this usage
+  --version               Show the version
+
+`;
+const options = docopt(usage, {
+  version: version
+});
+
+const directories = options['--directory'];
+const patterns = options['--pattern'];
+
+var uploader = new Uploader({
+  bucket: options['<bucket>'],
+  verbose: options['--verbose'],
+  prefix: options['--prefix'].pop() || '',
+  acl: options['--acl'].pop()
+});
+
+if (directories) {
+  directories.forEach(function(dir) {
+    uploader.addDirectory(dir);
+  });
+}
+
+if (patterns) {
+  patterns.forEach(function(pattern) {
+    uploader.addPattern(pattern);
+  });
+}
+uploader.on('progress', function() {
+  if (this.verbose) {
+    console.log('progress', this.uploadedFiles, this.totalFiles);
+  }
+});
+uploader.on('error', function(err) {
+  if (!this.silent) {
+    console.error('ERROR', err.message);
+  }
+});
+uploader.on('end', function() {
+  if (this.verbose) {
+    console.log('DONE!');
+  }
+})
