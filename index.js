@@ -76,7 +76,7 @@ Uploader.prototype.upload = function(file, buffer, root) {
     Bucket: this.bucket,
     Key: this.prefix + key,
     Body: buffer,
-    ContentType: mime.contentType(path.extname(file))
+    ContentType: mime.contentType(path.extname(file)) || 'application/octet-stream'
   };
   this.s3.putObject(options, function(err, data) {
     this.pending -= 1;
