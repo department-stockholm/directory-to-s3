@@ -17,6 +17,7 @@ Options:
   -v --verbose            Print progress logs to STDOUT [default: false]
   -s --silent             Print no logs ever [default: false]
   -h --help               Show this usage
+  -r --region=REGION      The AWS region the bucket is hosted on [default: us-east-1]
   --version               Show the version
 
 `;
@@ -30,6 +31,7 @@ const patterns = options['--pattern'];
 var uploader = new Uploader({
   bucket: options['<bucket>'],
   verbose: options['--verbose'],
+  region: options['--region'].pop(),
   prefix: options['--prefix'].pop() || '',
   acl: options['--acl'].pop()
 });

@@ -13,7 +13,6 @@ const bytes = require('bytes');
 function Uploader(options) {
   Emitter.call(this);
 
-  this.s3 = new AWS.S3({apiVersion: '2006-03-01'});
   this.acl = options.acl;
   this.verbose = options.verbose;
   this.prefix = options.prefix;
@@ -24,6 +23,14 @@ function Uploader(options) {
   this.uploadedBytes = 0;
   this.uploadedFiles = 0;
   this.root = path.resolve(process.cwd());
+
+  var opts = {
+    apiVersion: '2006-03-01'
+  };
+  if (options.region) {
+    opts.region = options.region;
+  }
+  this.s3 = new AWS.S3(opts);
 
   this.failed = false;
   this.on('error', function(err) {
