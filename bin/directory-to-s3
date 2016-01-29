@@ -13,11 +13,11 @@ Options:
   -d --directory=DIR      A directory which will be recursively uploaded [default: ./]
   -p --pattern=PATTERN    A glob pattern which will be uploaded
   -P --prefix=PREFIX      An optional prefix to prepend to each file key
+  -r --region=REGION      The AWS region the bucket is hosted on [default: us-east-1]
   -a --acl=ACL            The ACL to assign to the uploaded files [default: public-read]
   -v --verbose            Print progress logs to STDOUT [default: false]
   -s --silent             Print no logs ever [default: false]
   -h --help               Show this usage
-  -r --region=REGION      The AWS region the bucket is hosted on [default: us-east-1]
   --version               Show the version
 
 `;
