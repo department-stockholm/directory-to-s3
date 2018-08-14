@@ -56,9 +56,11 @@ uploader.on('error', function(err) {
   if (!this.silent) {
     console.error('ERROR', err.message);
   }
+
+  process.exit(1);
 });
 uploader.on('end', function() {
-  if (this.verbose) {
+  if (!this.silent) {
     console.log('DONE!');
   }
-})
+});
