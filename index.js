@@ -68,7 +68,7 @@ Uploader.prototype.addDirectory = function(dir) {
 };
 
 Uploader.prototype.upload = function(file, buffer, root) {
-  var key = file.split(root + '/').pop();
+  var key = file.split(root + path.sep).pop();
 
   if (this.failed) {
     return;
